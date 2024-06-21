@@ -11,13 +11,19 @@
     transition: filter 0.3s ease;
 }
 
+.form.blur {
+    filter: blur(10px);
+
+    backdrop-filter: blur(5px);
+
+}
+
 .form-group {
     margin-bottom: 15px;
 }
 
 h2 {
     text-align: center;
-    padding-bottom: 40px;
 }
 
 label {
@@ -42,11 +48,11 @@ input {
     justify-content: center;
 }
 
+
 .submit-button {
     width: 60%;
     padding: 10px;
     background-color: #F9ED32;
-
     color: rgb(20, 20, 20);
     border: none;
     border-radius: 4px;
@@ -60,9 +66,6 @@ input {
     margin-top: 20px;
     font-size: 14px;
     font-weight: 400;
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 20px;
 }
 
 .login-link a {
@@ -74,9 +77,22 @@ input {
     text-decoration: underline;
 }
 
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 0px;
-    text-align: center;
+.verification-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 2;
+}
+
+.verification-box p,
+.verification-box .input-group,
+.verification-box .button-group,
+.verification-box .cancel-group {
+    z-index: 3;
+
+    color: #fff;
+
 }
