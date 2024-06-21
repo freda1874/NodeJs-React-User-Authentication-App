@@ -24,7 +24,7 @@ The application workflow includes the following steps:
    - If the email contains "vip", the user is redirected to the `LandingVIP` page.
    - Otherwise, the user is redirected to the `Landing` page.
  
-** Flow Implemented:**
+### Flow Implemented: 
 
 Registration -> Verification Code -> Login -> Reset Password -> Landing or Landing VIP
 ![image](https://github.com/Iseul-park/User-Authentication-Project/assets/169954007/2a998178-a386-4a5e-8281-af8223eb7eed)
