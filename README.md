@@ -16,10 +16,10 @@ Hi, I have uploaded the frontend code for the project. The following updates and
 
 The application workflow includes the following steps:
 
-1. **Register** - Users can create a new account on the Register page.
+1. **Register** - Users can create a new account on the Register page.Once click the submit button, verification Box will pop up 
 2. **Verify Code** - After registration, users receive a verification code that they need to enter to verify their account.
 3. **Login** - Once the account is verified, users can log in using their credentials.
-4. **Reset Password** - If users forget their password, they can reset it using the Reset Password page.
+4. **Reset Password** - If users forget their password, they can reset it using the Reset Password page.Once click the submit button, again comes verification code.
 5. **Landing or Landing VIP** - Based on the user's email, after logging in, they will be directed to either the regular Landing page or the VIP Landing page:
    - If the email contains "vip", the user is redirected to the `LandingVIP` page.
    - Otherwise, the user is redirected to the `Landing` page.
