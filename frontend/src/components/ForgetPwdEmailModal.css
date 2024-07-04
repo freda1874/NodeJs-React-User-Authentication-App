@@ -1,0 +1,84 @@
+.email-modal {
+  width: 80%;
+  height: 80%;
+  padding: 20px;
+  background-color: rgba(68, 66, 66, 0.7);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  margin: 0 auto;
+  color: #141414;
+}
+
+.input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20p;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+  text-align: center;
+  font-size: 14px;
+  color: black;
+}
+
+.input-group input {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #f2d335;
+  border-radius: 4px;
+  font-size: 18px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.send-button {
+  padding: 10px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #f2d335;
+  color: black;
+}
+
+.cancel-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.cancel-icon {
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+.cancel-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #f2d335;
+  text-decoration: none;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: center;
+}

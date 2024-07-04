@@ -1,12 +1,12 @@
-import React, { useState, useNavigate } from "react";
+import React, { useState } from "react";
 import "./RegisterForm.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import VerificationBox from "./VerificationBox";
 import Alert from "@mui/material/Alert";
 
 export default function RegisterForm({ title, buttonText }) {
-  const [fullName, setFullName] = useState("");
+  const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -25,7 +25,7 @@ export default function RegisterForm({ title, buttonText }) {
     }
 
     const dataToSend = {
-      fullName: fullName,
+      nickname: nickname.trim(),
       email: email,
       password: password,
     };
@@ -60,6 +60,7 @@ export default function RegisterForm({ title, buttonText }) {
       if (response.data.status === "success") {
         setShowVerificationBox(true);
       } else if (response.data.status === "fail") {
+        console.log(response.data.message);
         //setEmailError(response.data.message);
       }
     } catch (error) {
@@ -84,8 +85,8 @@ export default function RegisterForm({ title, buttonText }) {
           </Alert>
         )}
 
-        <label htmlFor="fullName">Full Name</label>
-        <input type="text" id="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} required />
+        <label htmlFor="fullName">Nickname</label>
+        <input type="text" id="fullName" value={nickname} onChange={(e) => setNickname(e.target.value)} required />
 
         <div className="form-group">
           <label htmlFor="email">Email Address</label>
