@@ -15,9 +15,9 @@ const signToken = (email) => {
 };
 
 exports.signup = async (req, res) => {
-  const { email, first_name, last_name, created, event_id, isPaid, password } = req.body;
+  const { email, nickname, created, password } = req.body;
   try {
-    const userData = { email, first_name, last_name, created, event_id, isPaid, password };
+    const userData = { email, nickname, created, password };
     await saveMemberToDB(userData);
 
     return res.status(200).json({
@@ -68,7 +68,7 @@ exports.login = async (req, res) => {
       message: "Login successful",
       token,
       existingUser,
-      redirectUrl: "/",
+      redirectUrl: "/landing",
     });
   } catch (error) {
     console.error("Login error:", error);

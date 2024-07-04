@@ -4,7 +4,7 @@ const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
-  name: { type: String },
+  nickname: { type: String },
   created: { type: Date, default: Date.now },
   password: { type: String, required: true },
   roles: [{ type: mongoose.Schema.Types.ObjectId, ref: "Role" }],
