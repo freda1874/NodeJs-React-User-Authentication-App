@@ -20,25 +20,37 @@ http://localhost:5173/
 
 1.Register Page
 http://localhost:5173/ 
+
 ![image](https://github.com/Iseul-park/User-Authentication-Project/assets/85437054/a5df4c9f-d752-4754-a9f9-9da20b47dc50)
+
 2.verify email
+
 ![image](https://github.com/Iseul-park/User-Authentication-Project/assets/85437054/da2d467e-e681-425f-b23c-bd08d6dd8a09)
+
 
 3.Login Page:
 http://localhost:5173/login 
+
 Users can log in using their credentials.
-![image](https://github.com/Iseul-park/User-Authentication-Project/assets/85437054/56ba80ee-fae9-444b-bc70-9d035886df07)
+
+![image](https://github.com/Iseul-park/User-Authentication-Project/assets/85437054/56ba80ee-fae9-444b-bc70-9d035886df07
+
 
 4.Forget Password:
 4.1 Clicking "Forget Password" triggers a modal to enter the email.
+
 After entering the email, click "verify" to initiate the password reset process.
+
 ![image](https://github.com/Iseul-park/User-Authentication-Project/assets/85437054/d30ef946-4221-43df-9928-1b01af195eaa)
+
 Upon receiving the email, click the reset password link.
 Redirects to the reset password page where users can set a new password:
 
 4.2 Password Reset:
 http://localhost:5173/reset-password/:token
+
 ![image](https://github.com/Iseul-park/User-Authentication-Project/assets/85437054/51baf86c-c587-444d-9b8c-9cafaf7cefed)
+
 Successful password reset redirects back to the **login page**.
 
  
