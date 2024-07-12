@@ -41,16 +41,11 @@ export default function RegisterForm() {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/signup",
-        dataToSend
-      );
+      const response = await axios.post("http://localhost:3000/api/auth/signup", dataToSend);
       if (response.data.status === "success") {
         console.log("Success to save user data");
-        setSignupMessage(
-          "Successfully signed up! Redirecting to login page..."
-        );
-        navigate("/");
+        setSignupMessage("Successfully signed up! Redirecting to login page...");
+        navigate("/login");
       } else if (response.data.status === "fail") {
         console.log("Failed to save user data");
       }
@@ -72,10 +67,7 @@ export default function RegisterForm() {
 
     try {
       console.log("Sending OTP request to server...");
-      const response = await axios.post(
-        "http://localhost:3000/api/otp/send-otp",
-        { email }
-      );
+      const response = await axios.post("http://localhost:3000/api/otp/send-otp", { email });
       console.log("OTP response received:", response.data);
     } catch (error) {
       console.error("Error sending OTP:", error);
@@ -85,13 +77,11 @@ export default function RegisterForm() {
   function handleEmailChange(e) {
     setEmail(e.target.value);
     setEmailError("");
-
   }
 
   function handlePasswordChang(e) {
     setPassword(e.target.value);
     setPasswordError(""); // Clear password error when typing
-
   }
 
   function handleCancel() {
@@ -101,11 +91,7 @@ export default function RegisterForm() {
   return (
     <div className=" w-full max-w-sm lg:w-96 ">
       {showVerificationBox && (
-        <VerificationBox
-          email={email}
-          onCancel={handleCancel}
-          onVerifySuccess={() => setIsEmailVerified(true)}
-        />
+        <VerificationBox email={email} onCancel={handleCancel} onVerifySuccess={() => setIsEmailVerified(true)} />
       )}
 
       {signupMessage && <Alert msg={signupMessage} />}
@@ -120,10 +106,7 @@ export default function RegisterForm() {
         <div>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label
-                htmlFor="nickname"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="nickname" className="block text-sm font-medium leading-6 text-gray-900">
                 Nick Name
               </label>
               <div className="mt-2  ">
@@ -141,10 +124,7 @@ export default function RegisterForm() {
             </div>
 
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email
               </label>
               <div className="mt-2 flex items-center space-x-2">
@@ -162,32 +142,22 @@ export default function RegisterForm() {
                   className="block w-full flex-1 rounded-lg bg-gray-200  border-0  py-1.5   text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
                 {!isEmailVerified && (
-                  <button
-                    className="custom-button w-fit flex-shrink-0 bg-amber-300 "
-                    onClick={handleVerify}
-                  >
+                  <button className="custom-button w-fit flex-shrink-0 bg-amber-300 " onClick={handleVerify}>
                     Verify
                   </button>
                 )}
 
                 {isEmailVerified && (
-                  <button
-                    className="custom-button w-fit flex-shrink-0"
-                    disabled
-                  >
+                  <button className="custom-button w-fit flex-shrink-0" disabled>
                     Verified!
                   </button>
                 )}
-
               </div>
               {emailError && <ErrorMsg msg={emailError} />}
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                 Password
               </label>
               <div className="mt-2">
@@ -204,10 +174,7 @@ export default function RegisterForm() {
               </div>
             </div>
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                 Confirm Password
               </label>
               <div className="mt-2">
@@ -232,8 +199,7 @@ export default function RegisterForm() {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className={`custom-button ${!isEmailVerified ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                className={`custom-button ${!isEmailVerified ? "opacity-50 cursor-not-allowed" : ""}`}
                 disabled={!isEmailVerified}
               >
                 Sign up
@@ -241,10 +207,7 @@ export default function RegisterForm() {
             </div>
             <div className="text-sm leading-6 text-center">
               Already have a account? {""}
-              <a
-                href={frontendLinks.Login.path}
-                className="font-semibold text-indigo-600 hover:text-indigo-300"
-              >
+              <a href={frontendLinks.Login.path} className="font-semibold text-indigo-600 hover:text-indigo-300">
                 Log in
               </a>
             </div>
