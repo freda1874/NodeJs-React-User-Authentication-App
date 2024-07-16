@@ -62,12 +62,5 @@ Once logged in, if you are not an "Admin", you will see:
 if you are not logged in and you find this page, you will see:
 ![image](https://github.com/Iseul-park/User-Authentication-Project/assets/85437054/279e6179-9354-473f-a13b-a728269a2510)
 
+![image](https://github.com/user-attachments/assets/63449c82-43be-41d7-b91e-fab42ffe1b86)
 
-
-**Notes:**
-1. The verification code rule is not fully implemented yet.  
-
-2.Need to add user Properties from backend:
-
-User Role: Admin or Member 
-Days:  the number of days since user registration.
