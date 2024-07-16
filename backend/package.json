@@ -21,5 +21,8 @@
     "mongoose": "^5.13.9",
     "nodemailer": "^6.9.13",
     "nodemon": "^2.0.14"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0"
   }
 }

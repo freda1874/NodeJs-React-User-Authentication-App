@@ -6,6 +6,7 @@ import Alert from "./Alert";
 import ForgetPwdEmailModal from "./ForgetPwdEmailModal";
 import ErrorMsg from "./ErrorMsg";
 import { frontendLinks } from "../constants/index";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -14,11 +15,13 @@ export default function LoginForm() {
   const [loginSuccessMessage, setLoginSuccessMessage] = useState("");
   const [redirectUrl, setRedirectUrl] = useState("");
   const [showForgetPwdEmailModal, setShowForgetPwdEmailModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     try {
       const response = await axios.post(
         "http://localhost:3000/api/auth/login",
@@ -106,36 +109,50 @@ export default function LoginForm() {
                 >
                   Password
                 </label>
-                <div className="mt-2">
+                <div className="mt-2 relative">
                   <input
                     id="password"
                     name="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     className="block w-full rounded-lg bg-gray-200  border-0  py-1.5   text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
+                  </button>
                 </div>
               </div>
-            </form>
-            {errorMessage && (
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                {errorMessage}
+              <div>
+                {errorMessage && (
+                  <div className="text-sm text-red-600">
+                    <ErrorMsg msg={errorMessage} />
+                  </div>
+                )}
               </div>
-            )}
+              <div className="flex justify-center mt-6">
+                <button
+                  type="submit"
+                  className={`custom-button ${showForgetPwdEmailModal ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
+                  onSubmit={handleSubmit}
+                >
+                  Log in
+                </button>
+              </div>
+            </form>
+
+
+
+
           </div>
 
-          <div className="flex justify-center mt-6">
-            <button
-              type="submit"
-              className={`custom-button ${showForgetPwdEmailModal ? "opacity-50 cursor-not-allowed" : ""
-                }`}
-              disabled={showForgetPwdEmailModal}
-            >
-              Log in
-            </button>
-          </div>
+
 
           <div
             className={`flex items-center justify-evenly mt-6 ${showForgetPwdEmailModal ? "pointer-events-none opacity-50" : ""

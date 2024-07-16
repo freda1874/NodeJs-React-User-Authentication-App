@@ -6,6 +6,8 @@ import Alert from "./Alert";
 import { frontendLinks } from "../constants/index";
 import ErrorMsg from "./ErrorMsg";
 
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+
 import { validateEmail, validatePassword } from "./VerifyEmail&PSW.js";
 
 export default function RegisterForm() {
@@ -18,6 +20,7 @@ export default function RegisterForm() {
   const [emailError, setEmailError] = useState("");
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [signupMessage, setSignupMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   // const [loading, setLoading] = useState(false);
 
@@ -30,7 +33,7 @@ export default function RegisterForm() {
     }
 
     if (!validatePassword(password)) {
-      setPassword("Invalid Password");
+      setPasswordError("Password must be at least 6 characters long\nalso contain letters and numbers ");
       return;
     }
 
@@ -41,10 +44,15 @@ export default function RegisterForm() {
     };
 
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/signup", dataToSend);
+      const response = await axios.post(
+        "http://localhost:465/api/auth/signup",
+        dataToSend
+      );
       if (response.data.status === "success") {
         console.log("Success to save user data");
-        setSignupMessage("Successfully signed up! Redirecting to login page...");
+        setSignupMessage(
+          "Successfully signed up! Redirecting to login page..."
+        );
         navigate("/login");
       } else if (response.data.status === "fail") {
         console.log("Failed to save user data");
@@ -67,7 +75,10 @@ export default function RegisterForm() {
 
     try {
       console.log("Sending OTP request to server...");
-      const response = await axios.post("http://localhost:3000/api/otp/send-otp", { email });
+      const response = await axios.post(
+        "http://localhost:3000/api/otp/send-otp",
+        { email }
+      );
       console.log("OTP response received:", response.data);
     } catch (error) {
       console.error("Error sending OTP:", error);
@@ -81,7 +92,7 @@ export default function RegisterForm() {
 
   function handlePasswordChang(e) {
     setPassword(e.target.value);
-    setPasswordError(""); // Clear password error when typing
+    setPasswordError("");
   }
 
   function handleCancel() {
@@ -91,7 +102,11 @@ export default function RegisterForm() {
   return (
     <div className=" w-full max-w-sm lg:w-96 ">
       {showVerificationBox && (
-        <VerificationBox email={email} onCancel={handleCancel} onVerifySuccess={() => setIsEmailVerified(true)} />
+        <VerificationBox
+          email={email}
+          onCancel={handleCancel}
+          onVerifySuccess={() => setIsEmailVerified(true)}
+        />
       )}
 
       {signupMessage && <Alert msg={signupMessage} />}
@@ -106,7 +121,10 @@ export default function RegisterForm() {
         <div>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="nickname" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="nickname"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Nick Name
               </label>
               <div className="mt-2  ">
@@ -124,76 +142,117 @@ export default function RegisterForm() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Email
               </label>
-              <div className="mt-2 flex items-center space-x-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={email}
-                  onChange={handleEmailChange}
-                  autoComplete="email"
-                  defaultValue="adamwathan@gmail.com"
-                  required
-                  placeholder="you@example.com"
-                  disabled={isEmailVerified}
-                  className="block w-full flex-1 rounded-lg bg-gray-200  border-0  py-1.5   text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-                {!isEmailVerified && (
-                  <button className="custom-button w-fit flex-shrink-0 bg-amber-300 " onClick={handleVerify}>
-                    Verify
-                  </button>
-                )}
+              <div >
+                <div className="mt-2 flex items-center space-x-2">
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={email}
+                    onChange={handleEmailChange}
+                    autoComplete="email"
+                    defaultValue="adamwathan@gmail.com"
+                    required
+                    placeholder="you@example.com"
+                    disabled={isEmailVerified}
+                    className="block w-full flex-1 rounded-lg bg-gray-200  border-0  py-1.5   text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                  {!isEmailVerified && (
+                    <button
+                      className="custom-button w-fit flex-shrink-0 bg-amber-300   animate-pulse "
+                      onClick={handleVerify}
+                    >
+                      Verify
+                    </button>
+                  )}
 
-                {isEmailVerified && (
-                  <button className="custom-button w-fit flex-shrink-0" disabled>
-                    Verified!
-                  </button>
+                  {isEmailVerified && (
+                    <button
+                      className="custom-button w-fit flex-shrink-0  bg-green-600 text-white  "
+                      disabled
+                    >
+                      Verified 👌
+                    </button>
+                  )}
+                </div>
+
+              </div>
+              <div>
+                {emailError && (
+                  <div className="text-sm text-red-600">
+                    <ErrorMsg msg={emailError} />
+                  </div>
                 )}
               </div>
-              {emailError && <ErrorMsg msg={emailError} />}
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900 "
+              >
                 Password
               </label>
-              <div className="mt-2">
+              <div className="mt-2 relative">
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={handlePasswordChang}
-                  autoComplete="current-password"
                   required
                   className="block w-full rounded-lg bg-gray-200  border-0  py-1.5   text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+
+                </button>
               </div>
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
                 Confirm Password
               </label>
-              <div className="mt-2">
+              <div className="mt-2 relative">
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  autoComplete="current-password"
                   required
                   className="block w-full rounded-lg bg-gray-200  border-0  py-1.5   text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
+                </button>
               </div>
-              {passwordError && (
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                  {passwordError}
-                </div>
-              )}
+
+              <div>
+                {passwordError && (
+                  <div className="text-sm text-red-600">
+                    <ErrorMsg msg={passwordError} />
+                  </div>
+                )}
+              </div>
+
             </div>
 
             <div className="flex justify-center">
@@ -207,13 +266,16 @@ export default function RegisterForm() {
             </div>
             <div className="text-sm leading-6 text-center">
               Already have a account? {""}
-              <a href={frontendLinks.Login.path} className="font-semibold text-indigo-600 hover:text-indigo-300">
+              <a
+                href={frontendLinks.Login.path}
+                className="font-semibold text-indigo-600 hover:text-indigo-300"
+              >
                 Log in
               </a>
             </div>
           </form>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }

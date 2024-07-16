@@ -7,6 +7,8 @@ const Role = require("./models/role");
 
 console.log(process.env);
 
+
+
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,

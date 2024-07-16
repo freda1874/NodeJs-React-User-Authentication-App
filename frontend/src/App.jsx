@@ -13,7 +13,7 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [user, setUser] = useState(null);
   const [days, setDays] = useState(2);
-  const [role, setRole] = useState('Admin')
+  const [role, setRole] = useState('Member')
 
   useEffect(() => {
     const fetchUserInfo = async (token) => {
@@ -58,7 +58,7 @@ export default function App() {
         <Routes>
           <Route path={frontendLinks.Register.path} element={<RegisterPage />} />
           <Route path={frontendLinks.Login.path} element={<Login />} />
-          <Route path={frontendLinks.ResetPassword.path} element={<ResetPassword />} />
+          <Route path={`${frontendLinks.ResetPassword.path}/:token`} element={<ResetPassword />} />
           <Route
             path={frontendLinks.Landing.path}
             element={
@@ -66,7 +66,6 @@ export default function App() {
               />
             }
           />
-
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
