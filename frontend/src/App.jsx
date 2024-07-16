@@ -12,13 +12,11 @@ import axios from "axios";
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [user, setUser] = useState(null);
-  const [days, setDays] = useState(2);
-  const [role, setRole] = useState('Member')
 
   useEffect(() => {
     const fetchUserInfo = async (token) => {
       try {
-        const response = await axios.get("http://localhost:5173/api/user/userinfo", {
+        const response = await axios.get("http://localhost:3000/api/user/userinfo", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -26,6 +24,7 @@ export default function App() {
         if (response.data.status === "success") {
           const userData = response.data.data.user;
           setUser(userData);
+
           setIsLoggedIn(true);
           console.log("fetchUserInfo: success");
         } else {
@@ -62,7 +61,7 @@ export default function App() {
           <Route
             path={frontendLinks.Landing.path}
             element={
-              <Landing isLoggedIn={isLoggedIn} role={role} days={days} userName={user?.nickname} handleLogout={handleLogout}
+              <Landing isLoggedIn={isLoggedIn} user={user} handleLogout={handleLogout}
               />
             }
           />

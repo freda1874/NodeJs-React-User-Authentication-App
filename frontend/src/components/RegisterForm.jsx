@@ -45,7 +45,7 @@ export default function RegisterForm() {
 
     try {
       const response = await axios.post(
-        "http://localhost:465/api/auth/signup",
+        "http://localhost:3000/api/auth/signup",
         dataToSend
       );
       if (response.data.status === "success") {
@@ -149,7 +149,7 @@ export default function RegisterForm() {
                 Email
               </label>
               <div >
-                <div className="mt-2 flex items-center space-x-2">
+                <div className="mt-2 flex items-center  ">
                   <input
                     id="email"
                     name="email"
@@ -157,7 +157,7 @@ export default function RegisterForm() {
                     value={email}
                     onChange={handleEmailChange}
                     autoComplete="email"
-                    defaultValue="adamwathan@gmail.com"
+
                     required
                     placeholder="you@example.com"
                     disabled={isEmailVerified}
@@ -209,13 +209,12 @@ export default function RegisterForm() {
                   required
                   className="block w-full rounded-lg bg-gray-200  border-0  py-1.5   text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
                 <button
                   type="button"
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-
+                  {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
                 </button>
               </div>
             </div>

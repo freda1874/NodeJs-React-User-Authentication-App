@@ -19,7 +19,7 @@ export default function ForgetPwdEmailModal({ onClose, email, setEmail }) {
       if (response.data.status === "success") {
         setErrorMessage("");
         setSuccessMessage(
-          "Link sent! Please check your email to reset your password."
+          "Link sent to your email"
         );
 
 
@@ -77,10 +77,11 @@ export default function ForgetPwdEmailModal({ onClose, email, setEmail }) {
             Send
           </button>
         </form>
+
         {errorMessage && <ErrorMsg msg={errorMessage} />}
 
         {successMessage && (
-          <ErrorMsg className="text-left text-pretty text-green-800" msg={successMessage} />
+          <ErrorMsg msg={successMessage} className="text-green-500" />
         )}
         <div className="flex justify-center mt-8">
           <MdOutlineCancel onClick={onClose} />

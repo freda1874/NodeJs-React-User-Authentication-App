@@ -1,11 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { frontendLinks } from "../constants/index.js";
 export default function Landing({
-  isLoggedIn = true,
-  userName = "Mary",
-  days = 2,
-  handleLogout = () => { },
-  role,
+  isLoggedIn = true, user,
+  handleLogout
+
 }) {
   const navigate = useNavigate();
 
@@ -13,6 +11,13 @@ export default function Landing({
     handleLogout();
     navigate(frontendLinks.Register.path);
   };
+
+  const days = user ? Math.floor((Date.now() - new Date(user.created)) / (1000 * 60 * 60 * 24)) : 0;
+  const adminRoleId = "6685793fa01b126de433d9bd";
+  const role = user && user.roles.some(role => role._id === adminRoleId) ? 'Admin' : 'Member';
+  const userName = user?.nickname;
+  console.log(userName)
+
 
   return (
     <div>

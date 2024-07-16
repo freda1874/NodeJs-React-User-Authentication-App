@@ -148,7 +148,7 @@ export default function PassowrdForm({ token }) {
             <div className="flex justify-center items-center flex-col">
               <button
                 type="submit"
-                className="custom-button "
+                className="custom-button flex justify-center"
               >
                 {successMessage && (
                   <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
@@ -167,7 +167,6 @@ export default function PassowrdForm({ token }) {
                     ></path>
                   </svg>
                 )}
-
                 Reset Password
               </button>
               <div className="text-sm leading-6 text-center mt-4">

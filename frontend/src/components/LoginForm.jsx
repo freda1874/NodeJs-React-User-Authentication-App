@@ -130,9 +130,9 @@ export default function LoginForm() {
               </div>
               <div>
                 {errorMessage && (
-                  <div className="text-sm text-red-600">
-                    <ErrorMsg msg={errorMessage} />
-                  </div>
+
+                  <ErrorMsg msg={errorMessage} />
+
                 )}
               </div>
               <div className="flex justify-center mt-6">
