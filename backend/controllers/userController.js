@@ -1,104 +1,100 @@
-const nodemailer = require("nodemailer");
-
 const User = require("../models/user");
 const Role = require("../models/role");
+const { encryptPassword } = require("../utils/encryption");
 
-const saveUser = async ({ email, first_name, last_name, created }) => {
+exports.saveMemberToDB = async (userData) => {
   try {
     const role = await Role.findOne({ name: "Member" });
 
     if (!role) {
       throw new Error("Role not found");
     }
+    const encryptedPassword = await encryptPassword(userData.password);
 
     const user = new User({
-      email,
-      first_name,
-      last_name,
-      created,
-      isVerified: false,
-      role_id: [role._id], // _id is Pk
+      ...userData,
+      password: encryptedPassword,
+      roles: [role._id], // _id is Pk
     });
     await user.save();
     console.log("user data saved in saveUserToDB method");
-    //console.log(user);
   } catch (error) {
     console.error("Error saving user to DB:", error);
     throw error;
   }
 };
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  },
-});
-
-const generateNumericOTP = (length) => {
-  let otp = "";
-  for (let i = 0; i < length; i++) {
-    otp += Math.floor(Math.random() * 10);
-  }
-  return otp;
+const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach((prop) => {
+    if (allowedFields.includes(prop)) newObj[prop] = obj[prop];
+  });
+  return newObj;
 };
 
-const sendOTPByEmail = async (email) => {
-  const otp = generateNumericOTP(6);
+// exports.checkMembershipUser = async (req, res) => {
+//   const { email } = req.body;
+//   try {
+//     const userData = await getUserDataFromMockFile(email);
+//     console.log("userData:", userData);
 
-  const mailOptions = {
-    from: "OTP verification",
-    to: email,
-    subject: "Verify your email address to register",
-    html: `
-      <div>
-        <p>To verify your email address, please use the following One Time Password:</p>
-        <h1 style="text-align:center;">${otp}</h1>
-        <p>Do not share this OTP with anyone.</p>
-        <p>Thank you!</p>
-      </div>
-    `,
-  };
+//     if (userData) {
+//       return res.status(200).json({
+//         status: "success",
+//         message: "User data fetched from mock data/EventBrite and saved to the database",
+//         data: userData,
+//       });
+//     } else {
+//       return res.status(200).json({
+//         status: "fail",
+//         message: "User not found in mock data/EventBrite, please sign up as new user",
+//       });
+//     }
+//   } catch (error) {
+//     console.error("An error occurred:", error);
+//     return res.status(500).json({
+//       status: "error",
+//       message: "An error occurred while processing the request",
+//     });
+//   }
+// };
 
+exports.getUserInfo = async (req, res) => {
   try {
-    await transporter.sendMail(mailOptions);
-    console.log("OTP sent successfully to", email);
-    return otp;
+    res.status(200).json({
+      status: "success",
+      data: {
+        user: req.user,
+      },
+    });
+    console.log("user info:", req.user);
   } catch (error) {
-    console.error("Error sending OTP:", error);
-    throw error;
-  }
-};
-
-exports.checkUser = async (req, res) => {
-  const { email } = req.body;
-  try {
-    const user = await User.findOne({ email });
-    const otp = await sendOTPByEmail(email);
-    // if the user already signed up
-    if (!user) {
-      const otp = await sendOTPByEmail(email);
-      return res.status(200).json({
-        status: "success",
-        message: "User doesn't exist, need to register",
-        data: user,
-        otp: otp,
-        redirectUrl: "/otp",
-      });
-    } else {
-      return res.status(200).json({
-        status: "success",
-        message: "User already exists",
-        data: user,
-        redirectUrl: "/login",
-      });
-    }
-  } catch (error) {
-    console.error("An error occurred:", error);
-    return res.status(500).json({
+    res.status(500).json({
       status: "error",
-      message: "An error occurred while processing the request",
+      message: "Failed to fetch user info.",
+    });
+  }
+};
+
+exports.getAllUsers = async (req, res) => {
+  try {
+    //Populate the roles field to fetch role names
+    const users = await User.find().populate("roles", "name");
+
+    const usersWithRoleNames = users.map((user) => ({
+      ...user.toObject(),
+      roles: user.roles.map((role) => role.name),
+    }));
+
+    res.status(200).json({
+      status: "success",
+      results: usersWithRoleNames.length,
+      data: { users: usersWithRoleNames },
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: "Failed to fetch users.",
     });
   }
 };
