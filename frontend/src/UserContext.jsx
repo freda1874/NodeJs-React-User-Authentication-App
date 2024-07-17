@@ -1,20 +1,24 @@
 
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { frontendLinks } from "./constants/index.js";
 
 export const UserContext = createContext();
 
+export const useUser = () => useContext(UserContext);
+
 export const UserProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const fetchUserInfo = async (token) => {
       try {
-        const response = await axios.get("http://localhost:3000/api/user/userinfo", {
+        const response = await axios.get(`${API_URL}/user/userinfo`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -38,7 +42,7 @@ export const UserProvider = ({ children }) => {
     if (token) {
       fetchUserInfo(token);
     }
-  }, []);
+  }, [API_URL]);
 
   const login = (userData) => {
     console.log("User data on login:", userData);

@@ -6,14 +6,13 @@ import { MdOutlineCancel } from "react-icons/md";
 export default function ForgetPwdEmailModal({ onClose, email, setEmail }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 
   async function sendLink(e) {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/forgetPassword",
+      const response = await axios.post(`${API_URL}/auth/forgetPassword`,
         { email }
       );
       if (response.data.status === "success") {
