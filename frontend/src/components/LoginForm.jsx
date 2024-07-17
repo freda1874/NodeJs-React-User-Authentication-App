@@ -15,12 +15,12 @@ export default function LoginForm() {
   const [redirectUrl, setRedirectUrl] = useState("");
   const [showForgetPwdEmailModal, setShowForgetPwdEmailModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
+  const API_URL = import.meta.env.VITE_BACKEND_URL;
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/api/auth/login", { email, password });
+      const response = await axios.post(`${API_URL}/auth/login`, { email, password });
       if (response.data.status === "success") {
         // Get JWT from backend and save it in the localStorage
         const token = response.data.token;
@@ -123,9 +123,8 @@ export default function LoginForm() {
           </div>
 
           <div
-            className={`flex items-center justify-evenly mt-6 ${
-              showForgetPwdEmailModal ? "pointer-events-none opacity-50" : ""
-            }`}
+            className={`flex items-center justify-evenly mt-6 ${showForgetPwdEmailModal ? "pointer-events-none opacity-50" : ""
+              }`}
           >
             <Link
               to={frontendLinks.Register.path}
@@ -135,9 +134,8 @@ export default function LoginForm() {
             </Link>
 
             <div
-              className={`cursor-pointer text-sm leading-6 hover:font-semibold text-indigo-600 hover:text-indigo-500 ${
-                showForgetPwdEmailModal ? "pointer-events-none" : ""
-              }`}
+              className={`cursor-pointer text-sm leading-6 hover:font-semibold text-indigo-600 hover:text-indigo-500 ${showForgetPwdEmailModal ? "pointer-events-none" : ""
+                }`}
               onClick={handleForgotPasswordClick}
             >
               <div className="block"> Forgot password?</div>

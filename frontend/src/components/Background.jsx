@@ -1,4 +1,4 @@
-import React from "react";
+
 
 export default function Background({ src, alt, text, w, h }) {
   return (
