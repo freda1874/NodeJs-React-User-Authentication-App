@@ -44,15 +44,11 @@ export default function RegisterForm() {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/signup",
-        dataToSend
-      );
+      const response = await axios.post("http://localhost:3000/api/auth/signup", dataToSend);
       if (response.data.status === "success") {
         console.log("Success to save user data");
-        setSignupMessage(
-          "Successfully signed up! Redirecting to login page..."
-        );
+        setSignupMessage("Successfully signed up! Redirecting to login page...");
+        alert("Successfully signed up!");
         navigate("/login");
       } else if (response.data.status === "fail") {
         console.log("Failed to save user data");
@@ -75,10 +71,7 @@ export default function RegisterForm() {
 
     try {
       console.log("Sending OTP request to server...");
-      const response = await axios.post(
-        "http://localhost:3000/api/otp/send-otp",
-        { email }
-      );
+      const response = await axios.post("http://localhost:3000/api/otp/send-otp", { email });
       console.log("OTP response received:", response.data);
     } catch (error) {
       console.error("Error sending OTP:", error);
@@ -102,11 +95,7 @@ export default function RegisterForm() {
   return (
     <div className=" w-full max-w-sm lg:w-96 ">
       {showVerificationBox && (
-        <VerificationBox
-          email={email}
-          onCancel={handleCancel}
-          onVerifySuccess={() => setIsEmailVerified(true)}
-        />
+        <VerificationBox email={email} onCancel={handleCancel} onVerifySuccess={() => setIsEmailVerified(true)} />
       )}
 
       {signupMessage && <Alert msg={signupMessage} />}
@@ -121,10 +110,7 @@ export default function RegisterForm() {
         <div>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label
-                htmlFor="nickname"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="nickname" className="block text-sm font-medium leading-6 text-gray-900">
                 Nick Name
               </label>
               <div className="mt-2  ">
@@ -142,13 +128,10 @@ export default function RegisterForm() {
             </div>
 
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email
               </label>
-              <div >
+              <div>
                 <div className="mt-2 flex items-center  ">
                   <input
                     id="email"
@@ -157,7 +140,6 @@ export default function RegisterForm() {
                     value={email}
                     onChange={handleEmailChange}
                     autoComplete="email"
-
                     required
                     placeholder="you@example.com"
                     disabled={isEmailVerified}
@@ -173,15 +155,11 @@ export default function RegisterForm() {
                   )}
 
                   {isEmailVerified && (
-                    <button
-                      className="custom-button w-fit flex-shrink-0  bg-green-600 text-white  "
-                      disabled
-                    >
+                    <button className="custom-button w-fit flex-shrink-0  bg-green-600 text-white  " disabled>
                       Verified 👌
                     </button>
                   )}
                 </div>
-
               </div>
               <div>
                 {emailError && (
@@ -193,10 +171,7 @@ export default function RegisterForm() {
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900 "
-              >
+              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900 ">
                 Password
               </label>
               <div className="mt-2 relative">
@@ -219,10 +194,7 @@ export default function RegisterForm() {
               </div>
             </div>
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
+              <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                 Confirm Password
               </label>
               <div className="mt-2 relative">
@@ -251,7 +223,6 @@ export default function RegisterForm() {
                   </div>
                 )}
               </div>
-
             </div>
 
             <div className="flex justify-center">
@@ -265,16 +236,13 @@ export default function RegisterForm() {
             </div>
             <div className="text-sm leading-6 text-center">
               Already have a account? {""}
-              <a
-                href={frontendLinks.Login.path}
-                className="font-semibold text-indigo-600 hover:text-indigo-300"
-              >
+              <a href={frontendLinks.Login.path} className="font-semibold text-indigo-600 hover:text-indigo-300">
                 Log in
               </a>
             </div>
           </form>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 }

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Alert from "./Alert";
 import ForgetPwdEmailModal from "./ForgetPwdEmailModal";
@@ -17,23 +16,17 @@ export default function LoginForm() {
   const [showForgetPwdEmailModal, setShowForgetPwdEmailModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const navigate = useNavigate();
-
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
-        { email, password }
-      );
+      const response = await axios.post("http://localhost:3000/api/auth/login", { email, password });
       if (response.data.status === "success") {
         // Get JWT from backend and save it in the localStorage
         const token = response.data.token;
         localStorage.setItem("token", token);
         setErrorMessage("");
         setLoginSuccessMessage("You have successfully logged in!");
-        navigate("/landing");
         setRedirectUrl(response.data.redirectUrl);
       } else if (response.data.status === "fail") {
         setErrorMessage(response.data.message);
@@ -66,17 +59,11 @@ export default function LoginForm() {
       {loginSuccessMessage && <Alert msg={loginSuccessMessage} />}
 
       <div>
-        <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900 text-center">
-          Welcome Back!
-        </h2>
+        <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900 text-center">Welcome Back!</h2>
       </div>
       <div className="mt-3">
         {showForgetPwdEmailModal && (
-          <ForgetPwdEmailModal
-            onClose={closeForgetPasswordModal}
-            email={email}
-            setEmail={setEmail}
-          />
+          <ForgetPwdEmailModal onClose={closeForgetPasswordModal} email={email} setEmail={setEmail} />
         )}
       </div>
       <div>
@@ -84,10 +71,7 @@ export default function LoginForm() {
           <div>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
+                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                   Email
                 </label>
                 <div className="mt-2 flex items-center space-x-2">
@@ -103,10 +87,7 @@ export default function LoginForm() {
                 </div>
               </div>
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
+                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                   Password
                 </label>
                 <div className="mt-2 relative">
@@ -128,35 +109,23 @@ export default function LoginForm() {
                   </button>
                 </div>
               </div>
-              <div>
-                {errorMessage && (
-
-                  <ErrorMsg msg={errorMessage} />
-
-                )}
-              </div>
+              <div>{errorMessage && <ErrorMsg msg={errorMessage} />}</div>
               <div className="flex justify-center mt-6">
                 <button
                   type="submit"
-                  className={`custom-button ${showForgetPwdEmailModal ? "opacity-50 cursor-not-allowed" : ""
-                    }`}
+                  className={`custom-button ${showForgetPwdEmailModal ? "opacity-50 cursor-not-allowed" : ""}`}
                   onSubmit={handleSubmit}
                 >
                   Log in
                 </button>
               </div>
             </form>
-
-
-
-
           </div>
 
-
-
           <div
-            className={`flex items-center justify-evenly mt-6 ${showForgetPwdEmailModal ? "pointer-events-none opacity-50" : ""
-              }`}
+            className={`flex items-center justify-evenly mt-6 ${
+              showForgetPwdEmailModal ? "pointer-events-none opacity-50" : ""
+            }`}
           >
             <Link
               to={frontendLinks.Register.path}
@@ -166,8 +135,9 @@ export default function LoginForm() {
             </Link>
 
             <div
-              className={`cursor-pointer text-sm leading-6 hover:font-semibold text-indigo-600 hover:text-indigo-500 ${showForgetPwdEmailModal ? "pointer-events-none" : ""
-                }`}
+              className={`cursor-pointer text-sm leading-6 hover:font-semibold text-indigo-600 hover:text-indigo-500 ${
+                showForgetPwdEmailModal ? "pointer-events-none" : ""
+              }`}
               onClick={handleForgotPasswordClick}
             >
               <div className="block"> Forgot password?</div>
