@@ -1,4 +1,3 @@
-
 import { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +12,6 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const API_URL = import.meta.env.VITE_BACKEND_URL;
 
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     const fetchUserInfo = async (token) => {
@@ -26,7 +24,7 @@ export const UserProvider = ({ children }) => {
         if (response.data.status === "success") {
           const userData = response.data.data.user;
           setUser(userData);
-          console.log("fetchUserInfo:success");
+          console.log("fetchUserInfo: success");
         } else {
           console.error("Failed to fetch user info:", response.data.message);
           logout();
@@ -60,7 +58,11 @@ export const UserProvider = ({ children }) => {
     console.log("user:", user);
   };
 
-  return <UserContext.Provider value={{ user, login, logout }}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={{ user, login, logout }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export const ROLES = {
