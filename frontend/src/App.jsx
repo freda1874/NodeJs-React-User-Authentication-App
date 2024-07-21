@@ -15,9 +15,9 @@ export default function App() {
     <BrowserRouter>
       <UserProvider>
         <Routes>
-          <Route path={frontendLinks.Register.path} element={<RegisterPage />} />
-          <Route path={frontendLinks.Login.path} element={<Login />} />
-          <Route path={`${frontendLinks.ResetPassword.path}/:token`} element={<ResetPassword />} />
+          <Route path="/" element={<RegisterPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path={`/reset-password/:token`} element={<ResetPassword />} />
           <Route
             path={frontendLinks.Landing.path}
             element={<Landing />}
