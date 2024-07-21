@@ -20,7 +20,7 @@ export default function LoginForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, { email, password });
+      const response = await axios.post(`${API_URL}/api/auth/login`, { email, password });
       if (response.data.status === "success") {
         // Get JWT from backend and save it in the localStorage
         const token = response.data.token;

@@ -32,7 +32,7 @@ export default function PassowrdForm({ token }) {
 
     try {
       const response = await axios.patch(
-        `${API_URL}/auth/resetPassword/${token}`,
+        `${API_URL}/api/auth/resetPassword/${token}`,
         {
           password,
           rePassword,

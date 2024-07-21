@@ -4,7 +4,6 @@ dotenv.config(); // load environment variables from .env file
 const mongoose = require("mongoose");
 const app = require("./app");
 const Role = require("./models/role");
-
 console.log(process.env);
 
 

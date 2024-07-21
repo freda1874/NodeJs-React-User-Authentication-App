@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext, ROLES } from "../UserContext";
-
+import { ROLES } from "../pages/UserProvider";
+import { UserContext } from "../pages/UserContext"
 export default function Landing() {
-  const { user, logout } = useContext(UserContext);
+  const { user, logout, } = useContext(UserContext);
 
   const handleLogout = () => {
     logout();

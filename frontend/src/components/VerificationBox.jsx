@@ -18,7 +18,7 @@ export default function VerificationBox({ email, onCancel, onVerifySuccess }) {
     console.log("OTP submitted:", otp);
 
     try {
-      const response = await axios.post(`${API_URL}/otp/verify-otp`, { email, otp });
+      const response = await axios.post(`${API_URL}/api/otp/verify-otp`, { email, otp });
 
       if (response.data.status === "success") {
         console.log("OTP code verified!");
@@ -39,7 +39,7 @@ export default function VerificationBox({ email, onCancel, onVerifySuccess }) {
   async function reSendCode(email) {
     try {
       console.log("Sending OTP request to server...");
-      const response = await axios.post(`${API_URL}/otp/verify-otp`, JSON.stringify({ email }));
+      const response = await axios.post(`${API_URL}/api/otp/verify-otp`, JSON.stringify({ email }));
       console.log("OTP response received:", response.data);
       if (response.data.status === "fail") {
         console.error("Error sending OTP:", response.data.message);

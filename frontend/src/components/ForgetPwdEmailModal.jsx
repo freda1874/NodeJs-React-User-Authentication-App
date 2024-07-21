@@ -12,7 +12,7 @@ export default function ForgetPwdEmailModal({ onClose, email, setEmail }) {
   async function sendLink(e) {
     e.preventDefault();
     try {
-      const response = await axios.post(`${API_URL}/auth/forgetPassword`,
+      const response = await axios.post(`${API_URL}/api/auth/forgetPassword`,
         { email }
       );
       if (response.data.status === "success") {

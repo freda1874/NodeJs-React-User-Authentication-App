@@ -45,7 +45,7 @@ export default function RegisterForm() {
     };
 
     try {
-      const response = await axios.post(`${API_URL}/auth/signup`, dataToSend);
+      const response = await axios.post(`${API_URL}/api/auth/signup`, dataToSend);
       if (response.data.status === "success") {
         console.log("Success to save user data");
         setSignupMessage("Successfully signed up! Redirecting to login page...");
