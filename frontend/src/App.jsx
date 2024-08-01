@@ -5,7 +5,6 @@ import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
 import Landing from "./pages/Landing";
 
-import { frontendLinks } from "./constants/index";
 import { UserProvider } from "./pages/UserProvider";
 
 export default function App() {
@@ -19,7 +18,7 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path={`/reset-password/:token`} element={<ResetPassword />} />
           <Route
-            path={frontendLinks.Landing.path}
+            path="/landing"
             element={<Landing />}
           />
         </Routes>
