@@ -12,7 +12,7 @@
     }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/backend/server.js" },
+    { "src": "/backend/(.*)", "dest": "/backend/server.js" },
     { "src": "/(.*)", "dest": "/frontend/index.html" }
   ]
 }
