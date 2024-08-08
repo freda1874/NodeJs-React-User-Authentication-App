@@ -15,12 +15,12 @@ export default function LoginForm() {
   const [redirectUrl, setRedirectUrl] = useState("");
   const [showForgetPwdEmailModal, setShowForgetPwdEmailModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const API_URL = import.meta.env.VITE_BACKEND_URL;
+  // const API_URL = import.meta.env.VITE_BACKEND_URL;
   async function handleSubmit(e) {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${API_URL}/api/auth/login`, { email, password });
+      const response = await axios.post("/api/auth/login", { email, password });
       if (response.data.status === "success") {
         // Get JWT from backend and save it in the localStorage
         const token = response.data.token;

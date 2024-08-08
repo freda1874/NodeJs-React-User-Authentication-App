@@ -32,32 +32,6 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-// exports.checkMembershipUser = async (req, res) => {
-//   const { email } = req.body;
-//   try {
-//     const userData = await getUserDataFromMockFile(email);
-//     console.log("userData:", userData);
-
-//     if (userData) {
-//       return res.status(200).json({
-//         status: "success",
-//         message: "User data fetched from mock data/EventBrite and saved to the database",
-//         data: userData,
-//       });
-//     } else {
-//       return res.status(200).json({
-//         status: "fail",
-//         message: "User not found in mock data/EventBrite, please sign up as new user",
-//       });
-//     }
-//   } catch (error) {
-//     console.error("An error occurred:", error);
-//     return res.status(500).json({
-//       status: "error",
-//       message: "An error occurred while processing the request",
-//     });
-//   }
-// };
 
 exports.getUserInfo = async (req, res) => {
   try {

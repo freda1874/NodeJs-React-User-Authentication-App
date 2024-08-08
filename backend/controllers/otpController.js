@@ -1,3 +1,5 @@
+require('dotenv').config({ path: './backend/.env' });
+
 const nodemailer = require("nodemailer");
 const Otp = require("../models/otp");
 const User = require("../models/user");
@@ -20,7 +22,7 @@ const generateNumericOTP = (length) => {
 
 const sendOTPByEmail = async (email, otp) => {
   const mailOptions = {
-    from: "DB Auth test",
+    from: process.env.MAIL_USER,
     to: email,
     subject: "Verify your email address to register",
     //text: `Your OTP for registration is: ${otp}`,
@@ -46,10 +48,10 @@ const sendOTPByEmail = async (email, otp) => {
 
 exports.sendOtp = async (req, res) => {
   const { email } = req.body;
+
   try {
     const existingUser = await User.findOne({ email });
 
-    // if the user already signed up
     if (existingUser) {
       return res.status(200).json({
         status: "fail",
@@ -79,6 +81,7 @@ exports.sendOtp = async (req, res) => {
 
 exports.verifyOtp = async (req, res) => {
   const { email, otp } = req.body;
+
   try {
     const otpRecord = await Otp.findOne({ email, otp });
 

@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start":"node --watch --env-file=.env server",
+    "dev": "node server.js"
   },
   "author": "",
   "license": "ISC",

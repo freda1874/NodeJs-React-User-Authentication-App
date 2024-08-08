@@ -20,11 +20,11 @@ export const UserProvider = ({ children }) => {
     }, [navigate, user]);
 
     useEffect(() => {
-        const API_URL = import.meta.env.VITE_BACKEND_URL;
+        // const API_URL = import.meta.env.VITE_BACKEND_URL;
         const token = localStorage.getItem("token");
         const fetchUserInfo = async (token) => {
             try {
-                const response = await axios.get(`${API_URL}/api/user/userinfo`, {
+                const response = await axios.get("/api/user/userinfo", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

@@ -11,9 +11,7 @@ let app = express();
 app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
-});
+
 //CORS middleware
 app.use(cors());
 
@@ -21,5 +19,7 @@ app.use(cors());
 app.use("/api/user", userRouter);
 app.use("/api/otp", otpRouter);
 app.use("/api/auth", authRouter);
-
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
 module.exports = app;

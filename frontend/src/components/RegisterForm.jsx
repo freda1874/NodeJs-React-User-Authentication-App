@@ -45,7 +45,7 @@ export default function RegisterForm() {
     };
 
     try {
-      const response = await axios.post(`${API_URL}/api/auth/signup`, dataToSend);
+      const response = await axios.post("/api/auth/signup", dataToSend);
       if (response.data.status === "success") {
         console.log("Success to save user data");
         setSignupMessage("Successfully signed up! Redirecting to login page...");
@@ -72,7 +72,7 @@ export default function RegisterForm() {
 
     try {
       console.log("Sending OTP request to server...");
-      const response = await axios.post(`${API_URL}/otp/send-ot`, { email });
+      const response = await axios.post("/api/otp/send-otp", { email });
       console.log("OTP response received:", response.data);
     } catch (error) {
       console.error("Error sending OTP:", error);

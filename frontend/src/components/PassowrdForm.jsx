@@ -16,7 +16,7 @@ export default function PassowrdForm({ token }) {
   const [redirectUrl, setRedirectUrl] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_BACKEND_URL;
+  // const API_URL = import.meta.env.VITE_BACKEND_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -32,7 +32,7 @@ export default function PassowrdForm({ token }) {
 
     try {
       const response = await axios.patch(
-        `${API_URL}/api/auth/resetPassword/${token}`,
+        "/api/auth/resetPassword/${token}",
         {
           password,
           rePassword,
