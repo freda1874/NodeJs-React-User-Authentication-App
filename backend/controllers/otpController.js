@@ -4,12 +4,13 @@ const nodemailer = require("nodemailer");
 const Otp = require("../models/otp");
 const User = require("../models/user");
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
+var transporter = nodemailer.createTransport({
+  host: "sandbox.smtp.mailtrap.io",
+  port: 2525,
   auth: {
     user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  },
+    pass: process.env.MAIL_PASS
+  }
 });
 
 const generateNumericOTP = (length) => {

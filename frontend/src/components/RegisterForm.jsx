@@ -22,7 +22,6 @@ export default function RegisterForm() {
   const [signupMessage, setSignupMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const API_URL = import.meta.env.VITE_BACKEND_URL;
   // const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {

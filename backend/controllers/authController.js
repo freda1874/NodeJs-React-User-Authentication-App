@@ -135,18 +135,6 @@ exports.protect = async (req, res, next) => {
   }
 };
 
-// exports.restrict = (role) => {
-//   return (req, res, next)=> {
-//     if(req.user.role !== role){
-//       return res.status(403).json({
-//         status: "fail",
-//         message: "You don't have permission to perform this action",
-//       });
-//     }
-//     next();
-//   }
-// };
-
 exports.restrict = (...allowedRoles) => {
   return async (req, res, next) => {
     const user = await User.findById(req.user._id).populate("roles", "name");
